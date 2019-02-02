@@ -46,6 +46,9 @@ public class ServletCarrito extends HttpServlet {
 		//Realmente a nivel de usuario humano no debería haber problema sin utilizar synchronized en este ejemplo.
 		//La función se debería utilizar si fuera necesario obtener algún dato de la sesión, modificarlo
 		//y posteriormente realizar alguna operación con él, entonces si habría que tener más cuidado.
+		//Además, las funciones get() y put() de los hashMap no son threadSafe y producen bottleneck hasta donde he entendido
+		//se produce ya que una gran cantidad de operaciones put() y get() provoca bastantes resizes en el hash y eso ocupa 
+		//mucho tiempo y capacidad de la CPU, ya que varios hilos haciendo la op put() a la vez provoca varios resize()
 		
 		HashMap<String, Integer> carrito = (HashMap<String, Integer>) request.getSession().getAttribute("carrito");
 		// No hay carrito, creamos uno y lo insertamos en sesión
@@ -66,7 +69,7 @@ public class ServletCarrito extends HttpServlet {
 		out.println("<HEAD><TITLE>Tienda SDI: carrito</TITLE></HEAD>");
 		out.println("<BODY>");
 		out.println(carritoEnHTML(carrito) + "<br>");
-		out.println("<a href=\"tienda.html\">Volver</a></BODY></HTML>");
+		out.println("<a href=\"index.jsp\">Volver</a></BODY></HTML>");
 	}
 
 	/**
