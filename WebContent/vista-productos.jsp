@@ -18,15 +18,14 @@
 <body>
 	<!-- Contenido -->
 	<div class="container" id="contenedor-principal">
-		<h2>Vista-Carrito</h2>
+		<h2>Vista-Productos</h2>
 		<ul>
-			<c:forEach var="par" items="${paresCarrito}">
+			<c:forEach var="producto" items="${productosTienda}">
 				<tr>
-					<li>${par.key}- ${par.value}</li>
-					<a href= eliminar?producto=<c:out value="${par.key}"/>>Eliminar</a>
+					<li>Nombre: ${producto.nombre}, 	Precio: ${producto.precio}</li>
+					<img src="<c:out value="${producto.imagen}"/>" />
 				</tr>
 			</c:forEach>
-			
 		</ul>
 	</div>
 </body>
